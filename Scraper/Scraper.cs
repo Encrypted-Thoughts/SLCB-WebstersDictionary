@@ -53,11 +53,7 @@ namespace ScraperTool
 
         private JObject GetJson(HtmlNode node)
         {
-            var root = new JObject(
-                new JProperty("id", node.Id), 
-                new JProperty("name", node.Name),
-                new JProperty("nodeType", node.NodeType.ToString())
-                );
+            var root = new JObject(new JProperty("name", node.Name), new JProperty("nodeType", node.NodeType.ToString()));
 
             var attributes = new JArray();
             foreach (var attribute in node.Attributes)
