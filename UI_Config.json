@@ -1,0 +1,32 @@
+{
+	"output_file": "settings.json",
+	"EnableLengthLimit": {
+		"type": "checkbox",
+		"value": true,
+		"label": "Limit Definition Length",
+		"tooltip": "Definitions can be long, do you want to limit the response to a set length?",
+		"group": ""
+	},
+	"LengthLimit": {
+		"type": "numberbox",
+		"value": 400,
+		"label": "Set Length Limit",
+		"tooltip": "Limit for length of message in Stream chat. Ever 400 characters is a new message in chat for Twitch. 1795 for Discord.",
+		"group": ""
+	},
+	"btnreadme": {
+		"type": "button",
+		"label": "open readme",
+		"tooltip": "read this!",
+		"wsevent": "",
+		"function": "openreadme",
+		"group": ""
+	},
+	"EnableDebug": {
+		"type": "checkbox",
+		"value": false,
+		"label": "Enable Debug",
+		"tooltip": "Enable or disable debug logs",
+		"group": "Debug Settings"
+	}
+}
