@@ -3,9 +3,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Linq;
-using System.Reflection;
-using System.Collections;
+using System.Net;
 
 namespace ScraperTool
 {
@@ -73,7 +71,7 @@ namespace ScraperTool
 
             if (node.ChildNodes.Count == 0)
             {
-                root.Add(new JProperty("innerText", node.InnerText));
+                root.Add(new JProperty("innerText", WebUtility.HtmlDecode(node.InnerText)));
             }
 
             return root;
