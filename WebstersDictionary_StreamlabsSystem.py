@@ -115,7 +115,8 @@ def Parse(parseString, userid, username, targetid, targetname, message):
     paths = List[str](["//div[@id='definition-wrapper'][1]//div[@class='row entry-attr'][1]/div", "//div[@id='definition-wrapper'][1]//div[@id='dictionary-entry-1'][1]/div[@class='vg']"])
     results = json.loads(Scraper.Parse("https://www.merriam-webster.com/dictionary/" + word, paths))
 
-    Parent.Log(ScriptName, str(results))
+    if ScriptSettings.EnableDebug:
+        Parent.Log(ScriptName, "Results: " + str(results))
 
     response = ""
     if len(results) < 2:
@@ -127,10 +128,14 @@ def Parse(parseString, userid, username, targetid, targetname, message):
     else:
         response += ReadDefinition(results[0]) + " | " + ReadDefinition(results[1])
 
+    response = " ".join(response.split())
+
     if ScriptSettings.EnableLengthLimit:
         response = response[:ScriptSettings.LengthLimit]
-
     parseString = parseString.replace(item.group(), response)
+
+    if ScriptSettings.EnableDebug:
+        Parent.Log(ScriptName, "Response: " + response)
 
     if ScriptSettings.EnableDebug:
         Parent.Log(ScriptName, "Definition obtained. I'm going back to sleep. I've learned enough today...")
@@ -171,15 +176,6 @@ def Unload():
 #---------------------------
 def ScriptToggled(state):
     return
-
-def send_message(message, chatType):
-    if chatType:
-        if chatType == "discord":
-            Parent.SendDiscordMessage(message)
-        else:
-            Parent.SendStreamMessage(message)
-    else:
-        Parent.SendStreamMessage(message)
 
 def openreadme():
     os.startfile(ReadMe)
