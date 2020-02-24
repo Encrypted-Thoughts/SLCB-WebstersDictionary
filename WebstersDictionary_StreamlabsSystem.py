@@ -45,7 +45,6 @@ class Settings(object):
 
     def Reload(self, jsondata):
         self.__dict__ = json.loads(jsondata, encoding="utf-8")
-        return
 
     def Save(self, SettingsFile):
         try:
@@ -63,13 +62,6 @@ class Settings(object):
 
 def ReloadSettings(jsondata):
     ScriptSettings.Reload(jsondata)
-
-def SaveSettings(self, SettingsFile):
-    with codecs.open(SettingsFile, encoding='utf-8-sig', mode='w+') as f:
-        json.dump(self.__dict__, f, encoding='utf-8-sig')
-    with codecs.open(SettingsFile.replace("json", "js"), encoding='utf-8-sig', mode='w+') as f:
-        f.write("var settings = {0};".format(json.dumps(self.__dict__, encoding='utf-8-sig')))
-    return
 
 #---------------------------
 #   [Required] Initialize Data (Only called on load)
@@ -96,6 +88,9 @@ def Tick():
 #   [Optional] Parse method (Allows you to create your own custom $parameters) 
 #---------------------------
 def Parse(parseString, userid, username, targetid, targetname, message):
+
+    if parseString == None:
+        return
 
     regex = "\$dictionary\(\s*\p{L}+\s*\)" # !dictionary(string of any letters from any language)
 
@@ -155,15 +150,6 @@ def ReadDefinition(node):
             response += ReadDefinition(child)
 
     return response
-
-#---------------------------
-#   [Optional] Reload Settings (Called when a user clicks the Save Settings button in the Chatbot UI)
-#---------------------------
-def ReloadSettings(jsonData):
-    # Execute json reloading here
-    ScriptSettings.__dict__ = json.loads(jsonData)
-    ScriptSettings.Save(SettingsFile)
-    return
 
 #---------------------------
 #   [Optional] Unload (Called when a user reloads their scripts or closes the bot / cleanup stuff)
