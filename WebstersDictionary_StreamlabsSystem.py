@@ -3,15 +3,11 @@
 #---------------------------------------
 # Script Import Libraries
 #---------------------------------------
-import clr
-import codecs
-import json
-import os
-import re
-import sys
+import clr, codecs, json, os, re, sys
 
 clr.AddReference("IronPython.Modules.dll")
-clr.AddReferenceToFileAndPath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "Scraper.dll"))
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + r"\References")
+clr.AddReference(r"Scraper.dll")
 from ScraperTool import Scraper
 from System.Collections.Generic import List
 
